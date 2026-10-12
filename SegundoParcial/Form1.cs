@@ -17,7 +17,7 @@ namespace SegundoParcial
 
     {
         // Realizo la Conexión a la Base de Datos
-        // 1. Declaración de variables globales (¡Agrega esto arriba!)
+        
         private string cadenaConexion = "Server=.;Database=ParcialProgramacion1;Trusted_Connection=True;TrustServerCertificate=True;";
 
         public int idSeleccionado = 0;
@@ -179,8 +179,8 @@ namespace SegundoParcial
             txtCategoria.Clear();
             txtPrecio.Clear();
             txtExistencias.Clear();
-            idSeleccionado = 0; // Resetea el ID seleccionado
-            txtNombre.Focus();  // Deja el cursor listo en el campo nombre
+            idSeleccionado = 0;
+            txtNombre.Focus();  
         }
 
 
@@ -233,5 +233,7 @@ namespace SegundoParcial
     }
 }
 
-
+//Integrantes
+//Diego Angel Cerna Rodriguez 
+//Diego Emnanuel Umaña Rivas
 
