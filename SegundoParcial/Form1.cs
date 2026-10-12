@@ -35,7 +35,7 @@ namespace SegundoParcial
         private void btnGuardar_Click(object sender, EventArgs e)
        
         {
-            // Ejecuta las validaciones de la Actividad 4
+            
             if (!ValidarCampos()) return;
 
             using (SqlConnection conexion = new SqlConnection(cadenaConexion))
@@ -70,7 +70,7 @@ namespace SegundoParcial
             ConsultarProductos();
         }
 
-        // Método auxiliar que llena el DataGridView (puedes pegarlo abajo de tus botones)
+        
         private void ConsultarProductos()
         {
             using (SqlConnection conexion = new SqlConnection(cadenaConexion))
@@ -96,7 +96,7 @@ namespace SegundoParcial
         private void btnActualizar_Click(object sender, EventArgs e)
       
         {
-            // Verifica si primero seleccionaron una fila del DataGridView
+            
             if (idSeleccionado == 0)
             {
                 MessageBox.Show("Por favor, seleccione un producto de la tabla primero.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -172,7 +172,7 @@ namespace SegundoParcial
             LimpiarCampos();
         }
 
-        // Método auxiliar para limpiar las cajas de texto
+        
         private void LimpiarCampos()
         {
             txtNombre.Clear();
@@ -203,7 +203,7 @@ namespace SegundoParcial
  
         
         }
-        // 2. Método de Validación (¡Agrega esto al final de tu código!)
+        // 2. Método de Validación 
         private bool ValidarCampos()
         {
             // El nombre y la categoría son obligatorios
