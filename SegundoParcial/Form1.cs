@@ -11,14 +11,17 @@ using System.Windows.Forms;
 
 
 
+
+
 namespace SegundoParcial
 {
     public partial class Form1 : Form
 
     {
         // Realizo la Conexión a la Base de Datos
-        
-        private string cadenaConexion = "Server=.;Database=ParcialProgramacion1;Trusted_Connection=True;TrustServerCertificate=True;";
+
+        public string cadenaConexion =
+     @"Server=.\SQLEXPRESS;Database=ParcialProgramacion1;Trusted_Connection=True;TrustServerCertificate=True;";
 
         public int idSeleccionado = 0;
 
@@ -75,7 +78,9 @@ namespace SegundoParcial
         {
             using (SqlConnection conexion = new SqlConnection(cadenaConexion))
             {
-                string query = "SELECT Id, Nombre, Categoria, Precio, Existencias FROM Productos";
+                string query = "SELECT IdProducto, Nombre, Categoria, Precio, Existencias FROM Productos";
+
+
                 SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion);
                 DataTable dt = new DataTable();
 
@@ -107,9 +112,9 @@ namespace SegundoParcial
 
             using (SqlConnection conexion = new SqlConnection(cadenaConexion))
             {
-                string query = "UPDATE Productos SET Nombre=@Nombre, Categoria=@Categoria, Precio=@Precio, Existencias=@Existencias WHERE Id=@Id";
+                string query = "UPDATE Productos SET Nombre=@Nombre, Categoria=@Categoria, Precio=@Precio, Existencias=@Existencias WHERE IdProducto=@IdProducto";
                 SqlCommand comando = new SqlCommand(query, conexion);
-                comando.Parameters.AddWithValue("@Id", idSeleccionado);
+                comando.Parameters.AddWithValue("@IdProducto", idSeleccionado);
                 comando.Parameters.AddWithValue("@Nombre", txtNombre.Text.Trim());
                 comando.Parameters.AddWithValue("@Categoria", txtCategoria.Text.Trim());
                 comando.Parameters.AddWithValue("@Precio", Convert.ToDecimal(txtPrecio.Text));
@@ -146,9 +151,11 @@ namespace SegundoParcial
 
             using (SqlConnection conexion = new SqlConnection(cadenaConexion))
             {
-                string query = "DELETE FROM Productos WHERE Id=@Id";
+                string query = "SELECT IdProducto, Nombre, Categoria, Precio, Existencias FROM Productos";
+
+
                 SqlCommand comando = new SqlCommand(query, conexion);
-                comando.Parameters.AddWithValue("@Id", idSeleccionado);
+                comando.Parameters.AddWithValue("@IdProducto", idSeleccionado);
 
                 try
                 {
@@ -184,25 +191,29 @@ namespace SegundoParcial
         }
 
 
-        private void dgvProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvProductos_CellClick(object sender, DataGridViewCellEventArgs e)
+
+
+       
         {
-            
-        {
-            // Verifica que se haga clic en una fila con datos y no en los encabezados
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow fila = dgvProductos.Rows[e.RowIndex];
-                idSeleccionado = Convert.ToInt32(fila.Cells["Id"].Value);
-                txtNombre.Text = fila.Cells["Nombre"].Value.ToString();
-                txtCategoria.Text = fila.Cells["Categoria"].Value.ToString();
-                txtPrecio.Text = fila.Cells["Precio"].Value.ToString();
-                txtExistencias.Text = fila.Cells["Existencias"].Value.ToString();
+
+              
+                idSeleccionado = Convert.ToInt32(fila.Cells["IdProducto"].Value);
+
+               
+                txtNombre.Text = fila.Cells["Nombre"].Value?.ToString() ?? "";
+                txtCategoria.Text = fila.Cells["Categoria"].Value?.ToString() ?? "";
+
+                
+                txtPrecio.Text = fila.Cells["Precio"].Value?.ToString() ?? "";
+                txtExistencias.Text = fila.Cells["Existencias"].Value?.ToString() ?? "";
             }
         }
 
- 
-        
-        }
+
         // 2. Método de Validación 
         private bool ValidarCampos()
         {
@@ -230,10 +241,10 @@ namespace SegundoParcial
             return true;
         }
 
+        
     }
 }
 
 //Integrantes
 //Diego Angel Cerna Rodriguez 
 //Diego Emnanuel Umaña Rivas
-
